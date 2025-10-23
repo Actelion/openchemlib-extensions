@@ -10,7 +10,9 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/* Implementation of a native Clipboardhandler for OpenChemLib using JNA.
+ * Some functionality is provided for compatibility with a dll which was used by OpenChemLibs NativeClipboardAccessor.
+ */
 public class JNAWinClipboardHandler {
 
     private static boolean isInitOK = true; // dummy to match NativeClipboardAccessor
@@ -53,11 +55,8 @@ public class JNAWinClipboardHandler {
         return buffer;
     }
 
-    private static WinNT.HANDLE createEnhMetaFile(WinNT.HANDLE hmeta/*, int x, int y*/) {
+    private static WinNT.HANDLE createEnhMetaFile(WinNT.HANDLE hmeta) {
         WinNT.HANDLE henhmeta = null;
-        /*if (x > 0 && y > 0) { // code block in dll, needed to copy sized molecule, but could not find a call, so maybe not required anymore?
-            struct POINT would be required.
-        } */
         int size = GDI32.GetMetaFileBitsEx(hmeta, 0, null);
         if (size > 0) {
             WinNT.HANDLE handle = KERNEL32.GlobalAlloc(0x0042, size);

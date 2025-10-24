@@ -23,6 +23,9 @@ public class TestDialog {
         JPanel panelx = new JPanel();
         panelx.setLayout(new BoxLayout(panelx, BoxLayout.X_AXIS));
 
+        JPanel panelx2 = new JPanel();
+        panelx2.setLayout(new BoxLayout(panelx2, BoxLayout.X_AXIS));
+
         JEditableChemistryView natMol = new JEditableChemistryView(ExtendedDepictor.TYPE_MOLECULES);
         JEditableChemistryView natRxn = new JEditableChemistryView(ExtendedDepictor.TYPE_REACTION);
         JEditableStructureView natStruct = new JEditableStructureView();
@@ -32,16 +35,30 @@ public class TestDialog {
         panelx.add(natStruct);
         panelx.add(natRxn);
 
-        panely.add(panelx);
 
-        String toggle = "Toggle Clz: ";
+
+        String toggle = "Toggle Class: ";
         JButton toggleButton = new JButton(toggle + getCurrentNativeClipClass());
         toggleButton.addActionListener(a -> {
-            ClipboardHandler.useNextnativeCliphandler();
+            ClipboardHandler.useNextnativeCliphandler(false);
             toggleButton.setText(toggle + getCurrentNativeClipClass());
         });
+        /*JButton sizedMolButton = new JButton("CopySizedMolecule");
+        JTextField widthTextField = new JTextField("Width");
+        JTextField heightTextField = new JTextField("Height");
+        sizedMolButton.addActionListener(a-> {
+            new ClipboardHandler().copySizedMolecule(natMol.getStructures()[0], Integer.valueOf(widthTextField.getText()), Integer.valueOf(heightTextField.getText()));
+        });*/
 
-        panely.add(toggleButton);
+
+        panelx2.add(toggleButton);
+        /*panelx2.add(sizedMolButton);
+        panelx2.add(widthTextField);
+        panelx2.add(heightTextField);*/
+        panelx2.setMaximumSize(new Dimension(panelx2.getMaximumSize().width, 40));
+
+        panely.add(panelx);
+        panely.add(panelx2);
         //panely.add(toggleButton2);
 
         f.setSize(new Dimension(800, 800));

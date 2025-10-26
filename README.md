@@ -2,7 +2,7 @@
 Extensions to OpenChemLib
 
 Current Extensions:
-- Native Clipbboard Handler via JNA for Windows
+- Native Clipbboard Handler via JNA for Windows and MacOS
 
 
 How it works:

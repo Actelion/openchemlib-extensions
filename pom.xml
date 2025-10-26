@@ -40,6 +40,12 @@
             <version>2025.10.1-SNAPSHOT</version><!--TODO add min version -->
 
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

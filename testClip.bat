@@ -1,0 +1,1 @@
+C:\JavaSoft\jdk-17.0.3+7\bin\java -jar .\libs\junit-platform-console-standalone-1.8.1.jar --class-path libs\openchemlib-2025.10.1-SNAPSHOT.jar;target\classes;target\test-classes;libs\jna-platform-5.18.0.jar;libs\jna-5.17.0.jar --select-class ClipboarFormatTester 

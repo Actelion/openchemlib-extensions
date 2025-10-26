@@ -19,8 +19,7 @@ public class JNAWinClipboardHandler {
     // Numeric windows default formats are defined in jna. E.g. User32.CF_BITMAP or User32.CF_DIB
     private static Map<String, Integer> stdWinCFValues = new HashMap() {
         {
-            put(ClipboardHandler.NC_METAFILE, User32.CF_ENHMETAFILE);
-            put(ClipboardHandler.NC_DIB, User32.CF_DIB);
+            put(ClipboardFormat.NC_METAFILE, User32.CF_ENHMETAFILE);
         }
     };
 
@@ -88,6 +87,7 @@ public class JNAWinClipboardHandler {
                 }
                 WinNT.HANDLE handleData = formatHandling(format, buffer);
                 if (handleData != null) {
+                    System.out.printf("SetClipboarData %s\n",format);
                     USER32.SetClipboardData(format, handleData);
                     ok = true;
                 }
@@ -95,6 +95,7 @@ public class JNAWinClipboardHandler {
                 USER32.CloseClipboard();
             }
         }
+        System.out.printf("SetClipboard %s\n",true);
         return ok;
     }
 
@@ -131,8 +132,8 @@ public class JNAWinClipboardHandler {
             try {
                 if (USER32.EmptyClipboard()) {
                     WinNT.HANDLE hmeta = wmfToEmf(filename);
-                    int fmol = USER32.RegisterClipboardFormat(ClipboardHandler.NC_SERIALIZEMOLECULE);
-                    int fcd = USER32.RegisterClipboardFormat(ClipboardHandler.NC_CHEMDRAWINTERCHANGE);
+                    int fmol = USER32.RegisterClipboardFormat(ClipboardFormat.NC_SERIALIZEMOLECULE.value());
+                    int fcd = USER32.RegisterClipboardFormat(ClipboardFormat.NC_CHEMDRAWINTERCHANGE.value());
 
                     WinNT.HANDLE handleMol = copyToGlobalBuffer(serializedObject);
                     WinNT.HANDLE handleCD = copyToGlobalBuffer(sketch);
@@ -163,9 +164,9 @@ public class JNAWinClipboardHandler {
             try {
                 if (USER32.EmptyClipboard()) {
 
-                    int fctab = USER32.RegisterClipboardFormat(ClipboardHandler.NC_CTAB);
-                    int frxn = USER32.RegisterClipboardFormat(ClipboardHandler.NC_SERIALIZEREACTION);
-                    int fcd = USER32.RegisterClipboardFormat(ClipboardHandler.NC_CHEMDRAWINTERCHANGE);
+                    int fctab = USER32.RegisterClipboardFormat(ClipboardFormat.NC_CTAB.value());
+                    int frxn = USER32.RegisterClipboardFormat(ClipboardFormat.NC_SERIALIZEREACTION.value());
+                    int fcd = USER32.RegisterClipboardFormat(ClipboardFormat.NC_CHEMDRAWINTERCHANGE.value());
 
                     WinNT.HANDLE handlectab = copyToGlobalBuffer(ctab);
                     WinNT.HANDLE handleRxn = copyToGlobalBuffer(serializedObject);

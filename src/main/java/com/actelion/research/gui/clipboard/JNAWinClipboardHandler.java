@@ -89,7 +89,6 @@ public class JNAWinClipboardHandler {
                 }
                 WinNT.HANDLE handleData = formatHandling(format, buffer);
                 if (handleData != null) {
-                    System.out.printf("SetClipboarData %s\n",format);
                     USER32.SetClipboardData(format, handleData);
                     ok = true;
                 }
@@ -97,7 +96,6 @@ public class JNAWinClipboardHandler {
                 USER32.CloseClipboard();
             }
         }
-        System.out.printf("SetClipboard %s\n",true);
         return ok;
     }
 

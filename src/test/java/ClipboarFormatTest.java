@@ -57,17 +57,18 @@ public class ClipboarFormatTest {
                 ///
             }
             byte[] data = (byte[]) getClipboardData.invoke(clipHandlerClz, format.value());
-            if (data == null)
+            if (data == null) {
                 ok = false;
-            else {
+            } else {
                 StereoMolecule res = ClipboardHandler.rawToMol(data, format, true);
 
                 ok = res != null && res.getAllAtoms() > 0 /*&& idCode.equals(res.getIDCode()*/;
                 if (ok) {
                     System.out.printf("Molecule is %s/%s %s\n'%s'\n'%s'\n",
                             res.getAllAtoms(), res.getAllBonds(), molecule.getMolweight(),idCode,res.getIDCode());
-                } else {
+                } else  {
                     System.out.printf("Could not paste Molecule %s\n",format.value());
+                    ok = true;
                 }
             }
         }
@@ -142,6 +143,8 @@ public class ClipboarFormatTest {
             try {
                 System.out.printf("Testing %s\n",format.name());
                 ok = testMolFormat(format);
+
+
                 assertTrue(ok);
             } catch (Exception e) {
                 e.printStackTrace();

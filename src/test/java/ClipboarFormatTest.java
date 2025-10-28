@@ -129,8 +129,9 @@ public class ClipboarFormatTest {
                 case NC_DATAFLAVOR_RXNSMILES:
                 case NC_EMBEDDEDSKETCH:
                 case NC_CHEMDRAWINTERCHANGE:
-                case NC_METAFILE:
-                case COM_PE_CDX:
+
+                case NC_METAFILE: // disabled due to paste error
+//                case COM_PE_CDX:
                     return false;
                 default:
                     return true;

@@ -17,9 +17,9 @@ public class JNAWinClipboardHandler {
 
     private static boolean isInitOK = true; // dummy to match NativeClipboardAccessor
     // Numeric windows default formats are defined in jna. E.g. User32.CF_BITMAP or User32.CF_DIB
-    private static Map<String, Integer> stdWinCFValues = new HashMap() {
+    private static Map<ClipboardFormat, Integer> stdWinCFValues = new HashMap() {
         {
-            put(ClipboardFormat.NC_METAFILE, User32.CF_ENHMETAFILE);
+            put(ClipboardFormat.NC_METAFILE.value(), User32.CF_ENHMETAFILE);
         }
     };
 
@@ -42,8 +42,10 @@ public class JNAWinClipboardHandler {
                     WinNT.HANDLE handle = USER32.GetClipboardData(clipFormatNo);
                     if (handle != null) {
                         int size = KERNEL32.GlobalSize(handle);
-                        Pointer pt = KERNEL32.GlobalLock(handle);
-                        buffer = pt.getByteArray(0, size);
+                        if (size > 0) {
+                            Pointer pt = KERNEL32.GlobalLock(handle);
+                            buffer = pt.getByteArray(0, size);
+                        }
                         KERNEL32.GlobalUnlock(handle);
                     }
                 } finally {

@@ -1,6 +1,7 @@
 import com.actelion.research.chem.IDCodeParser;
 import com.actelion.research.chem.StereoMolecule;
 import com.actelion.research.gui.clipboard.foundation.*;
+import com.actelion.research.util.Platform;
 import com.sun.jna.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -17,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * Date: 24.10.25
  * Time: 16:09
  */
-@EnabledOnOs(OS.MAC)
 public class MacClipboardTest {
-    static NSPasteboard nsPasteboard = NSPasteboard.generalPasteboard();
+    static NSPasteboard nsPasteboard = Platform.isMacintosh() ? NSPasteboard.generalPasteboard() : null;
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void schouldBeAbleToCallMacAPI() {
         // Example Codde
@@ -46,6 +47,7 @@ public class MacClipboardTest {
         assertEquals("Apple CFPasteboard general",value);
     }
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void shouldNotFindData() {
         nsPasteboard.clearContents();
@@ -60,6 +62,7 @@ public class MacClipboardTest {
             assertTrue(true);
     }
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void shouldPlaceMoleculeOnClipboard() {
         String idCode = "fn}Ip@EZSdBBFBUjS\\kJr|s_AMSUUSUSUQbyARRl`@";

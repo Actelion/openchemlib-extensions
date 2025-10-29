@@ -1,5 +1,6 @@
 import com.actelion.research.chem.*;
 import com.actelion.research.gui.clipboard.foundation.*;
+import com.actelion.research.util.Platform;
 import com.actelion.research.util.Sketch;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -18,14 +19,14 @@ import java.nio.ByteOrder;
  * Time: 16:09
  */
 
-@EnabledOnOs(OS.MAC)
 public class MacMolClipboardTest {
-    static NSPasteboard nsPasteboard = NSPasteboard.generalPasteboard();
+    static NSPasteboard nsPasteboard = Platform.isMacintosh() ? NSPasteboard.generalPasteboard() : null;
 
     private String idCode = "fn}Ip@EZSdBBFBUjS\\kJr|s_AMSUUSUSUQbyARRl`@";
     private IDCodeParser parser = new IDCodeParser();
     private StereoMolecule molecule = parser.getCompactMolecule(idCode);
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void shouldPlaceChemDrawFormat() {
         StereoMolecule m = molecule.getCompactCopy();
@@ -37,6 +38,7 @@ public class MacMolClipboardTest {
         nsPasteboard.setData(NSData.initWithBytes(bytes),new NSString("com.perkinelmer.chemdraw.cdx-clipboard"));
     }
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void shouldPlaceMDLSketch() {
         StereoMolecule m = molecule.getCompactCopy();
@@ -45,6 +47,7 @@ public class MacMolClipboardTest {
         nsPasteboard.setData(NSData.initWithBytes(bytes),new NSString("com.mdli.sketchfile"));
     }
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void shouldPlaceMolfile() throws IOException {
         StereoMolecule m = molecule.getCompactCopy();

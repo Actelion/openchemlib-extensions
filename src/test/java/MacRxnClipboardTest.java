@@ -4,6 +4,7 @@ import com.actelion.research.gui.clipboard.ClipboardFormat;
 import com.actelion.research.gui.clipboard.ClipboardHandler;
 import com.actelion.research.gui.clipboard.foundation.*;
 import com.actelion.research.gui.dnd.ReactionTransferable;
+import com.actelion.research.util.Platform;
 import com.sun.jna.Pointer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,14 +28,13 @@ import static org.junit.jupiter.api.Assertions.*;
  * Time: 16:09
  */
 
-@EnabledOnOs(OS.MAC)
 public class MacRxnClipboardTest {
     static Reaction reaction = new Reaction();
     static String serializedRxnFormat = "JAVA_DATAFLAVOR:application/x-java-serialized-object; class=com.actelion.research.chem.reaction.Reaction";
     static String smilesRxnFormat = "JAVA_DATAFLAVOR:chemical/x-daylight-reactionsmiles; class=java.lang.String";
 
     static ClipboardHandler handler = new ClipboardHandler();
-    static NSPasteboard nsPasteboard = NSPasteboard.generalPasteboard();
+    static NSPasteboard nsPasteboard = Platform.isMacintosh() ? NSPasteboard.generalPasteboard() : null;
 
     @BeforeAll
     public static void setup() throws Exception {
@@ -42,6 +42,7 @@ public class MacRxnClipboardTest {
         parser.parse(reaction,RXN);
     }
 
+    @EnabledOnOs({OS.MAC})
    // @Test
     public void shouldCopyAndPasteClassic() {
         try {
@@ -67,6 +68,7 @@ public class MacRxnClipboardTest {
         }
     }
 
+    @EnabledOnOs({OS.MAC})
     @Test
     public void shouldCopyReaction() {
         nsPasteboard.clearContents();

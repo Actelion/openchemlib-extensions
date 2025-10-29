@@ -6,7 +6,11 @@ import com.actelion.research.gui.clipboard.ClipboardFormat;
 import com.actelion.research.gui.clipboard.ClipboardHandler;
 import com.actelion.research.util.Platform;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Date: 24.10.25
  * Time: 22:10
  */
+
 public class ClipboarFormatTest {
     private String idCode = "fn}Ip@EZSdBBFBUjS\\kJr|s_AMSUUSUSUQbyARRl`@";
     private IDCodeParser parser = new IDCodeParser();
@@ -39,12 +44,13 @@ public class ClipboarFormatTest {
 
     @BeforeAll
     public static void init() throws Exception {
-        clipHandlerClz = loadNativeCliphandler();
-        setClipBoardData = clipHandlerClz.getMethod("setClipBoardData", String.class, byte[].class, boolean.class);
-        getClipboardData = clipHandlerClz.getMethod("getClipboardData", String.class);
-        RXNFileParser parser = new RXNFileParser();
-        parser.parse(reaction,RXN);
-
+        if (!Platform.isLinux()) {
+            clipHandlerClz = loadNativeCliphandler();
+            setClipBoardData = clipHandlerClz.getMethod("setClipBoardData", String.class, byte[].class, boolean.class);
+            getClipboardData = clipHandlerClz.getMethod("getClipboardData", String.class);
+            RXNFileParser parser = new RXNFileParser();
+            parser.parse(reaction,RXN);
+        }
     }
 
     boolean testMolFormat(ClipboardFormat format) throws InvocationTargetException, IllegalAccessException {
@@ -102,7 +108,7 @@ public class ClipboarFormatTest {
         return ok;
     }
 
-    //@Test
+    @Disabled
     public void testMetafile() {
         boolean ok;
         ClipboardFormat format = Platform.isWindows() ?
@@ -119,6 +125,7 @@ public class ClipboarFormatTest {
         }
 
     }
+    @EnabledOnOs({OS.MAC,OS.WINDOWS})
     @Test
     public void testMolFormats() {
         boolean ok = false;
@@ -155,6 +162,7 @@ public class ClipboarFormatTest {
     }
 
 
+    @EnabledOnOs({OS.MAC,OS.WINDOWS})
     @Test
     public void testRXNFormats() {
         boolean ok = false;
@@ -192,6 +200,7 @@ public class ClipboarFormatTest {
         }
     }
 
+    @EnabledOnOs({OS.MAC,OS.WINDOWS})
     @Test
     public void placeRxn() throws InvocationTargetException, IllegalAccessException {
         testRxnFormat(ClipboardFormat.NC_DATAFLAVOR_SERIALIZEDREACTION);

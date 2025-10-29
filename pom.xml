@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.actelion.research</groupId>
             <artifactId>openchemlib</artifactId>
-            <version>2025.10.4-SNAPSHOT</version><!--TODO add min version -->
+            <version>2025.10.1-SNAPSHOT</version><!--TODO add min version -->
 
         </dependency>
         <dependency>
@@ -56,6 +56,11 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
             </plugin>
         </plugins>
     </build>

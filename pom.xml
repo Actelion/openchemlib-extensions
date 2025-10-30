@@ -20,7 +20,7 @@
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
             <version>[4.0.0,5.18.0]</version>
-<!--             tried with these versions -->
+<!--            tested with these versions -->
 <!--            <version>4.0.0</version>-->
 <!--            <version>4.5.2</version>-->
 <!--            <version>5.18.0</version>-->
@@ -29,7 +29,7 @@
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
             <version>[4.0.0,5.18.0]</version>
-<!--             tried with these versions -->
+<!--            tested with these versions -->
 <!--            <version>4.0.0</version>-->
 <!--            <version>4.5.2</version>-->
 <!--            <version>5.18.0</version>-->
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.actelion.research</groupId>
             <artifactId>openchemlib</artifactId>
-            <version>2025.10.1-SNAPSHOT</version><!--TODO add min version -->
+            <version>2025.10.4-SNAPSHOT</version><!--TODO add min release version -->
 
         </dependency>
         <dependency>

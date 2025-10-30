@@ -32,34 +32,24 @@
  */
 package com.actelion.research.gui.clipboard;
 
-import com.actelion.research.gui.clipboard.foundation.*;
+import com.actelion.research.gui.clipboard.foundation.NSData;
+import com.actelion.research.gui.clipboard.foundation.NSPasteboard;
+import com.actelion.research.gui.clipboard.foundation.NSString;
 import com.sun.jna.Pointer;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class JNAMacClipboardHandler
-{
+public class JNAMacClipboardHandler {
     private static boolean isInitOK = true; // dummy to match NativeClipboardAccessor
     private static NSPasteboard pasteboard = NSPasteboard.generalPasteboard();
     private static int fmId = 1;
-    private static final Map<Integer,String> formatMap = new HashMap() {
-        {
-/*
-            put(fmId,ClipboardHandler.);
-            put(ClipboardHandler.NC_DIB, User32.CF_DIB);
-*/
-        }
 
-    };
-
-    public static boolean isInitOK()
-    {
+    public static boolean isInitOK() {
         return isInitOK;
     }
 
-    public static byte[] getClipboardData(String format)
-    {
+    public static byte[] getClipboardData(String format) {
         byte[] data = null;
         NSData dataForType = pasteboard.getDataForType(new NSString(format));
         if (dataForType != null) {
@@ -72,6 +62,7 @@ public class JNAMacClipboardHandler
     public static boolean setClipBoardData(String format, byte[] buffer) {
         return setClipBoardData(format, buffer, true);
     }
+
     public static boolean setClipBoardData(String format, byte[] buffer, boolean emptyClipboard) {
         NSData data = NSData.initWithBytes(buffer);
         if (emptyClipboard)
@@ -79,62 +70,4 @@ public class JNAMacClipboardHandler
         return pasteboard.setData(data, new NSString(format));
     }
 
-
-
-/*
-   static void test() {
-        // Example Codde
-        Pointer classId = Foundation.INSTANCE.objc_getClass("NSPasteboard");
-        Pointer clearContents = Foundation.INSTANCE.sel_registerName("clearContents");
-        Pointer selector = Foundation.INSTANCE.sel_registerName("generalPasteboard");
-        System.out.printf("class id %s Selector %s\n", classId, selector);
-        NativeLong pasteBoard = Foundation.INSTANCE.objc_msgSend(classId, selector);
-        System.out.printf("Pointer %s \n", pasteBoard);
-        NativeLong ptr = Foundation.INSTANCE.objc_msgSend(pasteBoard, clearContents);
-        System.out.printf("clearContent returned %s\n", ptr.longValue());
-        Pointer name = Foundation.INSTANCE.sel_registerName("name");
-        NativeLong namePtr = Foundation.INSTANCE.objc_msgSend(pasteBoard, name);
-        //new ID(namePtr);
-        System.out.printf("name returned '%s'\n", toStringViaUTF8(namePtr));
-
-        try {
-            System.out.printf("PasteBoard %s\n",pasteboard.getId());
-            //pasteboard.clearContents();
-            NSString ret = pasteboard.getString(new NSString("public.rtf"));
-            NSData dataForType = pasteboard.getDataForType(new NSString("com.mdli.sketchfile"));
-            if (dataForType != null) {
-                int size = dataForType.length();
-                byte[] byteArray = new Pointer(dataForType.getData().longValue()).getByteArray(0, size);
-
-                System.out.printf("Data %s\n", new String(byteArray));
-                StereoMolecule mol = new StereoMolecule();
-                Sketch.createMolFromSketchBuffer(mol, byteArray);
-                mol.ensureHelperArrays(Molecule.cHelperAll);
-                System.out.printf("Mol Atoms %d Bonds %d MW %s\n", mol.getAllAtoms(), mol.getBonds(), mol.getMolweight());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Pointer pasteboardType = Foundation.INSTANCE.sel_registerName("PasteboardType");
-        Pointer init = Foundation.INSTANCE.sel_registerName("init");
-        NativeLong foo = Foundation.INSTANCE.objc_msgSend(pasteBoard, pasteboardType
-                //,init
-        );
-        System.out.printf("PasteboardType returned %s\n", foo);
-    }
-
-    static String toStringViaUTF8(NativeLong cfString)
-    {
-        //if (ID.NIL.equals(cfString)) return null;
-
-        int lengthInChars = Foundation.INSTANCE.CFStringGetLength(cfString);
-        int potentialLengthInBytes = 3 * lengthInChars + 1; // UTF8 fully escaped 16 bit chars, plus nul
-
-        byte[] buffer = new byte[potentialLengthInBytes];
-        byte ok = Foundation.INSTANCE.CFStringGetCString(cfString, buffer, buffer.length, Foundation.INSTANCE.kCFStringEncodingUTF8);
-        if (ok == 0) throw new RuntimeException("Could not convert string");
-        return Native.toString(buffer);
-    }
-*/
 }

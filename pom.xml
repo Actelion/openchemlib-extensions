@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.actelion.research</groupId>
             <artifactId>openchemlib</artifactId>
-            <version>2025.10.4-SNAPSHOT</version><!--TODO add min release version -->
+            <version>2025.11.0</version>
 
         </dependency>
         <dependency>

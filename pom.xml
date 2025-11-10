@@ -6,8 +6,37 @@
 
     <groupId>com.actelion.research</groupId>
     <artifactId>openchemlib-extensions</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
+
+    <name>OpenChemLib Extensions</name>
+    <description>Extensions to the OpenChemLib</description>
+    <url>https://github.com/Actelion/openchemlib-extensions</url>
+    <organization>
+        <name>Idorsia Pharmaceuticals Ltd, Hegenheimermattweg 91, CH-4123 Allschwil, Switzerland</name>
+        <url>https://www.idorsia.com</url>
+    </organization>
+    <developers>
+        <developer>
+            <name>Alexander Reeder</name>
+            <organization>Idorsia Pharmaceuticals Ltd.</organization>
+        </developer>
+        <developer>
+            <name>Christian Rufener</name>
+            <organization>Alipheron AG</organization>
+        </developer>
+        <developer>
+            <name>Roman Bär</name>
+            <email>roman.baer@idorsia.com</email>
+            <organization>Idorsia Pharmaceuticals Ltd.</organization>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>BSD 3-Clause License</name>
+            <url>https://opensource.org/licenses/BSD-3-Clause</url>
+        </license>
+    </licenses>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -93,10 +122,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

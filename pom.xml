@@ -105,4 +105,11 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <connection>scm:git:git@github.com:Actelion/openchemlib-extensions.git</connection>
+        <developerConnection>scm:git:git@github.com:Actelion/openchemlib-extensions.git</developerConnection>
+        <url>https://github.com/Actelion/openchemlib-extensions</url>
+        <tag>HEAD</tag>
+    </scm>
 </project>

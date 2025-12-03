@@ -37,14 +37,11 @@ import com.actelion.research.gui.clipboard.foundation.NSPasteboard;
 import com.actelion.research.gui.clipboard.foundation.NSString;
 import com.sun.jna.Pointer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class JNAMacClipboardHandler {
     private static boolean isInitOK = true; // dummy to match NativeClipboardAccessor
     private static NSPasteboard pasteboard = NSPasteboard.generalPasteboard();
-    private static int fmId = 1;
 
+    // Do not delete!
     public static boolean isInitOK() {
         return isInitOK;
     }

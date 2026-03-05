@@ -94,7 +94,7 @@ public class NSObject
         public void close()
         {
             if (System.getProperty("jnapple.debug", "false").equals("true"))
-                System.out.println("[d] Cleaning up NSObject: " + getId());
+                System.out.println("[d] Cleaning up NSObject: ".concat(getId().toString()));
 
             Foundation.INSTANCE.objc_msgSend(getId(), releaseSelector);
         }
